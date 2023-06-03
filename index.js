@@ -2,6 +2,7 @@ const express=require('express')
 const Web3=require('web3')
 const cors=require('cors')
 const path=require('path')
+app=express()
 const bodyparser=require('body-parser')
 app.use(bodyparser.urlencoded({ extended: false }))
 let ticket_id_list=[]
@@ -11,7 +12,7 @@ app.listen(8000)
 app.use('/public', express.static('public'))
 app.set('views',path.join(__dirname+'/Gp'))
 app.set('view engine','ejs')
-const contractAddress='0x72Fc6Abc3416470F374D14B9C7aBDCDeda6eB563'
+const contractAddress='0x2619982683245d7456564404Ba31e058568bFdC0'
 const ABI=[{'inputs': [], 'stateMutability': 'nonpayable', 'type': 'constructor'},
 {'inputs': [],
  'name': 'add_user',
@@ -141,7 +142,7 @@ async function cancel(tid,ads,amount)
     const d=await con_instance.methods.cancel_ticket(tid).send({from:ads,value:amount-200,gasLimit:1000000})
 }
 reg_organ('0x2f85b86723588b7421905BE2072EB14f5C3dAed2')
-register_event('music',10,'u',150,164578,'ramba pradise','0x2f85b86723588b7421905BE2072EB14f5C3dAed2')
+register_event('Rockstar Anirudh',10,'u',150,164578,'ramba pradise','0x2f85b86723588b7421905BE2072EB14f5C3dAed2')
 app.get('',async function(req,res)
 {
     let listofevent=[]
@@ -183,4 +184,15 @@ app.post('/register_event',function(req,res)
     date=t.slice(0,2)
     month=t.slice(2,5)
     time=t.slice(5,8)
+})
+app.get('/booktic',function(req,res){
+    res.render('booktic')
+})
+app.get('/ticfin',function(req,res)
+{
+    res.render('ticketser')
+})
+app.post('/confirm',function(req,res)
+{
+    res.render('confirmation')
 })
